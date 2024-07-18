@@ -1,23 +1,10 @@
-
 <?php 
+
 // League ID
 $league_id = 90137;
 // FPL URL
 $url = 'https://fantasy.premierleague.com/api/leagues-classic/' . $league_id . '/standings/';
 
-// echo $fplUrl;
-
-// $curl = curl_init($fplUrl);
-// curl_setopt($curl, CURLOPT_URL, $fplUrl);
-// curl_setopt($curl, CURLOPT_RETURNTRANSFER,  true);
-// curl_setopt($curl, CURLOPT_HEADER,  false);
-
-// $response = curl_exec($curl);
-// $league_data = json_decode($response, true);
-
-// curl_close($curl);
-
-// array($league_data);
 $curl = curl_init($url);
 curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);
 
