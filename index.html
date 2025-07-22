@@ -5,59 +5,167 @@
 		<meta name="viewport" content="width=device-width, initial-scale=1.0">
 		<meta http-equiv="X-UA-Compatible" content="ie=edge">
 		<title>Countdown</title>
-		<link rel="shortcut icon" href="img/logo.png" type="image/x-icon">
-		<link rel="stylesheet" href="css/materialize.css">
-		<link rel="stylesheet" href="css/util.css">
+		<link rel="shortcut icon" href="logo-cropped.png" type="image/x-icon">
+    <link rel="apple-touch-icon" href="logo-cropped.png">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous">
+    <link rel="stylesheet" href="assets/css/style.css">
+    <!-- icons -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.3.0/font/bootstrap-icons.css">
+    <script src="https://cdn.lordicon.com/lordicon.js"></script>
+    <!-- AOS (Animate On Scroll Library) -->
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+
 		<style>
+      @font-face {
+        font-family: 'Gopher';
+        src: url('/Gopher-Regular.ttf');
+        font-weight: normal;
+        font-style: normal;
+      }
+
+      * {
+          padding: 0;
+          margin: 0;
+          font-family: Gopher;
+          box-sizing: border-box !important;
+          scroll-behavior: smooth;
+      }
+
+      html, body {
+          max-width: 100% !important;
+          overflow-x: hidden !important;
+      }
+
+      .hero {
+        position: relative;
+        background-color: #FFFFFF;
+        background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='200' height='200' stroke-opacity='0.5' fill-opacity='0.5' viewBox='0 0 800 800'%3E%3Cg fill='none' stroke='%23adadad' stroke-width='1'%3E%3Cpath d='M769 229L1037 260.9M927 880L731 737 520 660 309 538 40 599 295 764 126.5 879.5 40 599-197 493 102 382-31 229 126.5 79.5-69-63'/%3E%3Cpath d='M-31 229L237 261 390 382 603 493 308.5 537.5 101.5 381.5M370 905L295 764'/%3E%3Cpath d='M520 660L578 842 731 737 840 599 603 493 520 660 295 764 309 538 390 382 539 269 769 229 577.5 41.5 370 105 295 -36 126.5 79.5 237 261 102 382 40 599 -69 737 127 880'/%3E%3Cpath d='M520-140L578.5 42.5 731-63M603 493L539 269 237 261 370 105M902 382L539 269M390 382L102 382'/%3E%3Cpath d='M-222 42L126.5 79.5 370 105 539 269 577.5 41.5 927 80 769 229 902 382 603 493 731 737M295-36L577.5 41.5M578 842L295 764M40-201L127 80M102 382L-261 269'/%3E%3C/g%3E%3Cg fill='%23D51027'%3E%3Ccircle cx='769' cy='229' r='5'/%3E%3Ccircle cx='539' cy='269' r='5'/%3E%3Ccircle cx='603' cy='493' r='5'/%3E%3Ccircle cx='731' cy='737' r='5'/%3E%3Ccircle cx='520' cy='660' r='5'/%3E%3Ccircle cx='309' cy='538' r='5'/%3E%3Ccircle cx='295' cy='764' r='5'/%3E%3Ccircle cx='40' cy='599' r='5'/%3E%3Ccircle cx='102' cy='382' r='5'/%3E%3Ccircle cx='127' cy='80' r='5'/%3E%3Ccircle cx='370' cy='105' r='5'/%3E%3Ccircle cx='578' cy='42' r='5'/%3E%3Ccircle cx='237' cy='261' r='5'/%3E%3Ccircle cx='390' cy='382' r='5'/%3E%3C/g%3E%3C/svg%3E");
+        background-position: center;
+        /* opacity: 0.5; */
+        width: 100%;
+        height: 100vh;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+      }
+
+      .bg-primary {
+        background-color: #d51027 !important;
+      }
+
+      .text-primary {
+        color: #d51027 !important;
+      }
+
+      .btn-primary {
+        background-color: #d51027 !important;
+      }
+
+      /* === Countdown Styles === */
+
+      #countdown .time-box {
+          text-align: center;
+      }
+
+      #countdown .time-box .number {
+          font-size: 3.5rem;
+          font-weight: 300;
+          line-height: 1;
+          color: #d51027;
+      }
+
+      #countdown .time-box .label {
+          margin-top: .5rem;
+          text-transform: lowercase;
+          color: #6c757d;
+          font-size: 1rem;
+          letter-spacing: .05em;
+      }
 
 		</style>
 	</head>
 	<body>
-		<header>
-			<nav class="transparent z-depth-0">
-				<div class="nav-wrapper container">
-					<a class="brand-logo theme-color-txt" href="https://instagram.com/clnsdzyleague">
-						<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="#390035" class="bi bi-instagram" viewBox="0 0 16 16">
-							<path d="M8 0C5.829 0 5.556.01 4.703.048 3.85.088 3.269.222 2.76.42a3.9 3.9 0 0 0-1.417.923A3.9 3.9 0 0 0 .42 2.76C.222 3.268.087 3.85.048 4.7.01 5.555 0 5.827 0 8.001c0 2.172.01 2.444.048 3.297.04.852.174 1.433.372 1.942.205.526.478.972.923 1.417.444.445.89.719 1.416.923.51.198 1.09.333 1.942.372C5.555 15.99 5.827 16 8 16s2.444-.01 3.298-.048c.851-.04 1.434-.174 1.943-.372a3.9 3.9 0 0 0 1.416-.923c.445-.445.718-.891.923-1.417.197-.509.332-1.09.372-1.942C15.99 10.445 16 10.173 16 8s-.01-2.445-.048-3.299c-.04-.851-.175-1.433-.372-1.941a3.9 3.9 0 0 0-.923-1.417A3.9 3.9 0 0 0 13.24.42c-.51-.198-1.092-.333-1.943-.372C10.443.01 10.172 0 7.998 0zm-.717 1.442h.718c2.136 0 2.389.007 3.232.046.78.035 1.204.166 1.486.275.373.145.64.319.92.599s.453.546.598.92c.11.281.24.705.275 1.485.039.843.047 1.096.047 3.231s-.008 2.389-.047 3.232c-.035.78-.166 1.203-.275 1.485a2.5 2.5 0 0 1-.599.919c-.28.28-.546.453-.92.598-.28.11-.704.24-1.485.276-.843.038-1.096.047-3.232.047s-2.39-.009-3.233-.047c-.78-.036-1.203-.166-1.485-.276a2.5 2.5 0 0 1-.92-.598 2.5 2.5 0 0 1-.6-.92c-.109-.281-.24-.705-.275-1.485-.038-.843-.046-1.096-.046-3.233s.008-2.388.046-3.231c.036-.78.166-1.204.276-1.486.145-.373.319-.64.599-.92s.546-.453.92-.598c.282-.11.705-.24 1.485-.276.738-.034 1.024-.044 2.515-.045zm4.988 1.328a.96.96 0 1 0 0 1.92.96.96 0 0 0 0-1.92m-4.27 1.122a4.109 4.109 0 1 0 0 8.217 4.109 4.109 0 0 0 0-8.217m0 1.441a2.667 2.667 0 1 1 0 5.334 2.667 2.667 0 0 1 0-5.334"/>
-						</svg>
-						</a>
-					<ul class="right hide-on-med-and-down">
-						<li>
-							
-						</li>
-						<li>
-							<a href="fpldata.php" class="theme-color-txt">VIEW PLAYERS</a>
-						</li>
-					</ul>
-				</div>
-			</nav>
-		</header>
-		<br><br><br>
-		<section class="section container center">
-			<!-- <h3 class="green-text text-darken-3">FPL 2024/2025 Starts In:</h3> -->
-			 <img src="img/logo.png" alt="clnsdzy league logo" class="responsive-img" width="25%">
-			<div class="row">
-				<h4>GW1 starts in...</h4>
-				<div class="col s12 white">
-					<span class="days" id="day"></span>
-					<span>Days</span>
-					<br class="hide-on-med-and-up">
-					<span class="hours" id="hour"></span> 
-					<span>Hours</span>
-					<br class="hide-on-med-and-up">
-					<span class="minutes" id="minute"></span>
-					<span>Minutes</span>
-					<br class="hide-on-med-and-up">
-					<span class="seconds" id="second"></span>
-					<span>Seconds</span>
-				</div>
-				<a class="btn btn-large btn-flat theme-color-bg btn-flat white-text pulse" href="https://fantasy.premierleague.com/leagues/auto-join/conn6f" target="_blank">Join the League</a>
-			</div>
-		</section>
-		<!--Scripts below-->
-		<footer class="page-footer transparent">
-			<div class="container center-align grey-text text-lighten-1">&copy; 2024 CORE-TECH. All rights reserved.</div>
+		<main class="hero">
+      
+      <section class="section text-center">
+        <div class="container text-center" data-aos="fade-up" data-aos-delay="300">
+          <img src="logo.png" alt="clnsdzy league logo" class="img-fluid" width="200px">
+          <h6 class="text-muted mt-4 text-uppercase">GW1 Starts In:</h6>
+          <div id="countdown" class="d-lg-flex justify-content-center gap-lg-5 my-4">
+            <div class="time-box">
+                <div class="number" id="days">00</div>
+                <div class="label">days</div>
+            </div>
+            <div class="time-box">
+                <div class="number" id="hours">00</div>
+                <div class="label">hours</div>
+            </div>
+            <div class="time-box">
+                <div class="number" id="minutes">00</div>
+                <div class="label">minutes</div>
+            </div>
+            <div class="time-box">
+                <div class="number" id="seconds">00</div>
+                <div class="label">seconds</div>
+            </div>
+          </div>
+          <a class="btn btn-outline-dark btn-lg mt-2" href="https://fantasy.premierleague.com/leagues/auto-join/rgbpls" target="_blank">Join the League</a>
+        </div>
+      </section>
+    </main>
+
+		<footer class="container text-center">
+			<small class="text-muted">&copy; 2025 clnsDzy's League. All rights reserved.</small>
 		</footer>
-		<script src="js/sandbox.js"></script>
+    
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-kenU1KFdBIe4zVF0s0G1M5b4hcpxyD9F7jL+jjXkk+Q2h455rYXK/7HAuoJl+0I4" crossorigin="anonymous"></script>
+          <!-- AOS JS -->
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <script>
+        AOS.init({
+            duration: 900,
+            once: true,
+        });
+    </script>
+		<script>
+
+      // Countdown Timer Script - This script creates a countdown timer that counts down to a specific date and time.
+      (function() {
+        // Set deadline to 15th of August, 2025 at 6:30 AM
+        const target = new Date(2025, 7, 15, 18, 30, 0).getTime(); // Month is 0-indexed: 6 = July
+
+        const df = {
+          days:    document.getElementById('days'),
+          hours:   document.getElementById('hours'),
+          minutes: document.getElementById('minutes'),
+          seconds: document.getElementById('seconds')
+        };
+
+        function updateCountdown() {
+          const now = Date.now();
+          let diff = Math.max(0, target - now);
+
+          const sec = 1000;
+          const min = sec * 60;
+          const hr  = min * 60;
+          const day = hr  * 24;
+
+          const d = Math.floor(diff / day);      diff %= day;
+          const h = Math.floor(diff / hr);       diff %= hr;
+          const m = Math.floor(diff / min);      diff %= min;
+          const s = Math.floor(diff / sec);
+
+          df.days.textContent    = String(d).padStart(2,'0');
+          df.hours.textContent   = String(h).padStart(2,'0');
+          df.minutes.textContent = String(m).padStart(2,'0');
+          df.seconds.textContent = String(s).padStart(2,'0');
+        }
+
+        updateCountdown();
+        setInterval(updateCountdown, 1000);
+      })();
+    </script>
+
 	</body>
 </html>
